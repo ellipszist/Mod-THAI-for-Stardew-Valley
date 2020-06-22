@@ -26,7 +26,6 @@ import butterknife.OnClick;
  */
 public class AboutFragment extends Fragment {
 
-    @BindView(R.id.img_heart)
     ImageView imgHeart;
 
     @Override
