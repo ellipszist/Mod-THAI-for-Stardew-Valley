@@ -9,7 +9,7 @@ android {
 
 
     defaultConfig {
-        applicationId "com.zane.smapiinstaller"
+        applicationId "com.ell.smapiinstaller"
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 46

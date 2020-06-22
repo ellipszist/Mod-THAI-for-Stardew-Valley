@@ -4,7 +4,6 @@
     <string name="android_version_confirm">A versão do sistema do seu dispositivo é muito antiga para o MonoMod, isso pode levar ao travamento da estrutura 0Harmony, atualizar para o Android M ou posterior, se possível</string>
     <string name="app_name">Instalador SMAPI</string>
     <string name="button_compat">Compat</string>
-    <string name="button_donation_text">Doação</string>
     <string name="button_gplay">Ver na Play Store</string>
     <string name="button_install">Instalar</string>
     <string name="button_logs">Histórico</string>

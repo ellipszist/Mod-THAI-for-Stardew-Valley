@@ -4,7 +4,6 @@
     <string name="android_version_confirm">ระบบอุปกรณ์ของคุณเก่าเกินกว่าจะใช้ MonoMod อาจจะทำให้ 0Harmony framework เกิดอาการ game crash ถ้าเป็นไปได้กรุณาอัปเดตเป็น Android 6 หรือใหม่กว่า</string>
     <string name="app_name">แอปติดตั้ง SMAPI</string>
     <string name="button_compat">ใช้กับแอปนี้ได้</string>
-    <string name="button_donation_text">การบริจาค</string>
     <string name="button_gplay">ดูใน Play Store</string>
     <string name="button_install">ติดตั้ง</string>
     <string name="button_logs">บันทึกการทำงานของ SMAPI</string>
@@ -61,7 +60,7 @@
     <string name="settings_verbose_logging">บันทึกอย่างละเอียด</string>
     <string name="signing_package">กำลังลงทะเบียนแอป</string>
     <string name="smapi_game_name">SMAPI Stardew Valley</string>
-    <string name="smapi_version">เวอร์ชั่น SMAPI: 3.6.1</string>
+    <string name="smapi_version">เวอร์ชั่น SMAPI: 3.6.1 / ภาษาไทย: 1.8.9 beta 13</string>
     <string name="text_install_tip1">หมายเหตุ: ต้องการเกมเวอร์ชั่น 1.4.5.138 หรือใหม่กว่า</string>
     <string name="text_install_tip2">ต้องการเกมหลักเมื่อทำการอัปเดต / ติดตั้ง</string>
     <string name="unpacking_smapi_files">กำลังแกะกล่อง</string>
@@ -85,4 +84,5 @@
     <string name="button_initial">เริ่มต้น</string>
     <string name="error_directory_exists_with_same_filename">%1$s ไม่อยู่ในตำแหน่งที่ถูกต้อง กรุณาลบไฟล์ออก</string>
     <string name="error_patch_crc_incorrect">การแพทช์ %1$s ล้มเหลว: CRC (%2$s))</string>
+    <string name="settings_rewrite_in_parallel">เปิดใช้งาน Multi-Thread</string>
 </resources>

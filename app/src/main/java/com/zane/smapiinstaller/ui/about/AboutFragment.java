@@ -3,7 +3,6 @@ package com.zane.smapiinstaller.ui.about;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.didikee.donate.AlipayDonate;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,7 +39,7 @@ public class AboutFragment extends Fragment {
 
     @OnClick(R.id.button_release)
     void release() {
-        CommonLogic.doOnNonNull(this.getContext(), (context) -> CommonLogic.openUrl(context, "https://github.com/ZaneYork/SMAPI-Android-Installer/releases"));
+        CommonLogic.doOnNonNull(this.getContext(), (context) -> CommonLogic.openUrl(context, "https://ellipszist.github.io"));
     }
 
     @OnClick(R.id.button_gplay)
@@ -66,58 +65,10 @@ public class AboutFragment extends Fragment {
         });
     }
 
-    @OnClick(R.id.button_donation)
-    void donation() {
-        DialogUtils.showListItemsDialog(imgHeart, R.string.button_donation_text, R.array.donation_methods, (dialog, position) ->
-                CommonLogic.showAnimation(imgHeart, R.anim.heart_beat, (animation) ->
-                        CommonLogic.doOnNonNull(this.getActivity(), (activity) -> listSelectLogic(activity, position))));
-    }
-
     @OnClick(R.id.button_privacy_policy)
     void privacyPolicy() {
         CommonLogic.showPrivacyPolicy(imgHeart, (dialog, dialogAction) -> {
         });
     }
 
-    private void listSelectLogic(Context context, int position) {
-        switch (position) {
-            case 0:
-                boolean hasInstalledAlipayClient = AlipayDonate.hasInstalledAlipayClient(context);
-                if (hasInstalledAlipayClient) {
-                    try {
-                        AlipayDonate.startAlipayClient(this.getActivity(), "fkx13570v1pp2xenyrx4y3f");
-                    } catch (Exception e) {
-                        Crashes.trackError(e);
-                        CommonLogic.openUrl(context, "http://dl.zaneyork.cn/alipay.png");
-                    }
-                } else {
-                    CommonLogic.openUrl(context, "http://dl.zaneyork.cn/alipay.png");
-                }
-                break;
-            case 1:
-                CommonLogic.openUrl(context, "http://dl.zaneyork.cn/wechat.png");
-                break;
-            case 2:
-                CommonLogic.openUrl(context, "http://dl.zaneyork.cn/qqpay.png");
-                break;
-            case 3:
-                hasInstalledAlipayClient = AlipayDonate.hasInstalledAlipayClient(context);
-                if (hasInstalledAlipayClient) {
-                    if (CommonLogic.copyToClipboard(context, Constants.RED_PACKET_CODE)) {
-                        PackageManager packageManager = context.getPackageManager();
-                        CommonLogic.doOnNonNull(packageManager.getLaunchIntentForPackage("com.eg.android.AlipayGphone"), (intent) -> {
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            context.startActivity(intent);
-                            Toast.makeText(context, R.string.toast_redpacket_message, Toast.LENGTH_LONG).show();
-                        });
-                    }
-                }
-                break;
-            case 4:
-                CommonLogic.openUrl(context, "http://zaneyork.cn/download/list.html");
-                break;
-            default:
-                break;
-        }
-    }
 }

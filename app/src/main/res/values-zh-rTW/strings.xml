@@ -3,7 +3,6 @@
     <string name="android_version_confirm">您的系統版本過舊，可能會導致 0Harmony 無效，建議更新到 Android 6 或以上版本</string>
     <string name="app_name">SMAPI 安裝器</string>
     <string name="button_compat">相容性</string>
-    <string name="button_donation_text">贊助</string>
     <string name="button_gplay" >Google Play</string>
     <string name="button_install">安裝</string>
     <string name="button_logs">日誌</string>

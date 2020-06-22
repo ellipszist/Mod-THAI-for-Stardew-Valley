@@ -13,15 +13,15 @@
         <item>Bahasa Indonesia</item>
     </string-array>
     <string-array name="translators">
-        <item>OFF</item>
+        <item>ปิด</item>
         <item>Google</item>
         <item>YouDao</item>
     </string-array>
     <string-array name="mod_list_sort_by">
-        <item>by Name(asc)</item>
-        <item>by Name(desc)</item>
-        <item>by Date(asc)</item>
-        <item>by Date(desc)</item>
+        <item>เรียงตามชื่อ (a-z)</item>
+        <item>เรียงตามชื่อ (z-a)</item>
+        <item>เรียงตามวันที่ (เก่า-ใหม่)</item>
+        <item>เรียงตามวันที่ (ใหม่-เก่า)</item>
     </string-array>
     <string-array name="qq_group_list">
         <item>860453392</item>

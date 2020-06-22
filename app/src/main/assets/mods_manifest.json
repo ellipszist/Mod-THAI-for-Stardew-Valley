@@ -1,5 +1,15 @@
 [
   {
+    "assetPath":"mods/android-modth.zip",
+    "Name": "AndroidModTH",
+    "UniqueID": "AndroidModTH"
+  },
+  {
+    "assetPath":"mods/content-patcher.zip",
+    "Name": "Content Patcher",
+    "UniqueID": "ContentPatcher"
+  },
+  {
     "assetPath":"mods/virtual-keyboard.zip",
     "Name": "VirtualKeyboard",
     "UniqueID": "VirtualKeyboard"
