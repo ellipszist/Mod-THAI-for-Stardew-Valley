@@ -46,7 +46,7 @@
     <string name="menu_download">Baixar</string>
     <string name="menu_help">Socorro</string>
     <string name="menu_install">Instalar</string>
-    <string name="nav_header_subtitle">by 'ELL</string>
+    <string name="nav_header_subtitle">By \'ELL</string>
     <string name="nav_header_title">Instalador SMAPI</string>
     <string name="ok">Está bem</string>
     <string name="patching_package">Patch SMAPI</string>
