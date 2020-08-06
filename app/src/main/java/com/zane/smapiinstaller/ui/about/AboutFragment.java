@@ -38,7 +38,7 @@ public class AboutFragment extends Fragment {
 
     @OnClick(R.id.button_release)
     void release() {
-        CommonLogic.doOnNonNull(this.getContext(), (context) -> CommonLogic.openUrl(context, "https://ellipszist.github.io"));
+        CommonLogic.doOnNonNull(this.getContext(), (context) -> CommonLogic.openUrl(context, Constants.RELEASE_URL));
     }
 
     @OnClick(R.id.button_gplay)
@@ -46,7 +46,7 @@ public class AboutFragment extends Fragment {
         CommonLogic.openInPlayStore(this.getActivity());
     }
 
-    @OnClick(R.id.button_qq_group_1)
+//    @OnClick(R.id.button_qq_group_1)
     void joinQQ() {
         String baseUrl = "mqqopensdkapi://bizAgent/qm/qr?url=http%3A%2F%2Fqm.qq.com%2Fcgi-bin%2Fqm%2Fqr%3Ffrom%3Dapp%26p%3Dandroid%26k%3D";
         DialogUtils.showListItemsDialog(imgHeart, R.string.button_qq_group_text, R.array.qq_group_list, (dialog, position) -> {
@@ -62,6 +62,13 @@ public class AboutFragment extends Fragment {
                     break;
             }
         });
+    }
+
+//    @OnClick(R.id.button_donation)
+    void donation() {
+        DialogUtils.showListItemsDialog(imgHeart, R.string.button_donation_text, R.array.donation_methods, (dialog, position) ->
+                CommonLogic.showAnimation(imgHeart, R.anim.heart_beat, (animation) ->
+                        CommonLogic.doOnNonNull(this.getActivity(), (activity) -> listSelectLogic(activity, position))));
     }
 
     @OnClick(R.id.button_privacy_policy)

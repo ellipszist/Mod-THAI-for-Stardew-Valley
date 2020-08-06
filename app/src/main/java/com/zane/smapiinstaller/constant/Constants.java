@@ -31,6 +31,10 @@ public class Constants {
      */
     public static final String DLC_LIST_UPDATE_URL = "http://dl.zaneyork.cn/smapi/downloadable_content_list.json";
     /**
+     * 软件发布页
+     */
+    public static final String RELEASE_URL = "https://github.com/ellipszist/StardewMods/releases";
+    /**
      * 帮助内容下载路径
      */
     public static final String HELP_LIST_UPDATE_URL = "http://dl.zaneyork.cn/smapi/help_item_list.json";
@@ -63,7 +67,7 @@ public class Constants {
     /**
      * SMAPI版本
      */
-    public static final String SMAPI_VERSION = "3.6.1";
+    public static final String SMAPI_VERSION = "3.6.2";
 
     /**
      * 平台
