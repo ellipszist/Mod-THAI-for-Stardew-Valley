@@ -12,8 +12,8 @@ android {
         applicationId "com.ell.smapiinstaller"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 49
-        versionName "1.5.8"
+        versionCode 50
+        versionName "1.5.8.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
