@@ -46,35 +46,9 @@ public class AboutFragment extends Fragment {
         CommonLogic.openInPlayStore(this.getActivity());
     }
 
-//    @OnClick(R.id.button_qq_group_1)
-    void joinQQ() {
-        String baseUrl = "mqqopensdkapi://bizAgent/qm/qr?url=http%3A%2F%2Fqm.qq.com%2Fcgi-bin%2Fqm%2Fqr%3Ffrom%3Dapp%26p%3Dandroid%26k%3D";
-        DialogUtils.showListItemsDialog(imgHeart, R.string.button_qq_group_text, R.array.qq_group_list, (dialog, position) -> {
-            switch (position){
-                case 0:
-                    CommonLogic.doOnNonNull(this.getContext(), (context) -> CommonLogic.openUrl(context, baseUrl + "AAflCLHiWw1haM1obu_f-CpGsETxXc6b"));
-                    break;
-                case 1:
-                    CommonLogic.doOnNonNull(this.getContext(), (context) -> CommonLogic.openUrl(context, baseUrl + "kshK7BavcS2jXZ6exDvezc18ksLB8YsM"));
-                    break;
-                default:
-                    CommonLogic.doOnNonNull(this.getContext(), (context) -> CommonLogic.openUrl(context, baseUrl + "zqsWYGBuAxPx0n9RI_ONs-7NA1Mm48QY"));
-                    break;
-            }
-        });
-    }
-
-//    @OnClick(R.id.button_donation)
-    void donation() {
-        DialogUtils.showListItemsDialog(imgHeart, R.string.button_donation_text, R.array.donation_methods, (dialog, position) ->
-                CommonLogic.showAnimation(imgHeart, R.anim.heart_beat, (animation) ->
-                        CommonLogic.doOnNonNull(this.getActivity(), (activity) -> listSelectLogic(activity, position))));
-    }
-
     @OnClick(R.id.button_privacy_policy)
     void privacyPolicy() {
         CommonLogic.showPrivacyPolicy(imgHeart, (dialog, dialogAction) -> {
         });
     }
-
 }
