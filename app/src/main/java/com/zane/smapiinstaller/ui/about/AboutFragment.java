@@ -7,42 +7,44 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.microsoft.appcenter.crashes.Crashes;
 import com.zane.smapiinstaller.R;
 import com.zane.smapiinstaller.constant.Constants;
+import com.zane.smapiinstaller.databinding.FragmentAboutBinding;
 import com.zane.smapiinstaller.logic.CommonLogic;
 import com.zane.smapiinstaller.utils.DialogUtils;
 
 import androidx.fragment.app.Fragment;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * @author Zane
  */
 public class AboutFragment extends Fragment {
 
-    ImageView imgHeart;
+    private FragmentAboutBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_about, container, false);
-        ButterKnife.bind(this, root);
-        return root;
+        binding = FragmentAboutBinding.inflate(inflater, container, false);
+        binding.buttonRelease.setOnClickListener(v -> release());
+        binding.buttonPrivacyPolicy.setOnClickListener(v -> privacyPolicy());
+        return binding.getRoot();
     }
 
-    @OnClick(R.id.button_release)
-    void release() {
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
+
+    private void release() {
         CommonLogic.doOnNonNull(this.getContext(), (context) -> CommonLogic.openUrl(context, Constants.RELEASE_URL));
     }
 
-    @OnClick(R.id.button_gplay)
-    void gplay() {
+    private void gplay() {
         CommonLogic.openInPlayStore(this.getActivity());
     }
 
