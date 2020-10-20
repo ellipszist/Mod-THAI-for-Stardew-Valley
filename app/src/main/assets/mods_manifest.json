@@ -10,6 +10,16 @@
     "UniqueID": "ContentPatcher"
   },
   {
+    "assetPath":"mods/sve.zip",
+    "Name": "StardewValleyExpanded",
+    "UniqueID": "StardewValleyExpanded"
+  },
+  {
+    "assetPath":"mods/sve-requirements.zip",
+    "Name": "SVERequirements",
+    "UniqueID": "SVERequirements"
+  },
+  {
     "assetPath":"mods/virtual-keyboard.zip",
     "Name": "VirtualKeyboard",
     "UniqueID": "VirtualKeyboard"

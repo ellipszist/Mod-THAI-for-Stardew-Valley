@@ -308,12 +308,12 @@ public class CommonLogic {
         CommonLogic.doOnNonNull(activity, (context) -> {
             try {
                 Intent intent = new Intent("android.intent.action.VIEW");
-                intent.setData(Uri.parse("market://details?id=com.ell.smapiinstaller"));
+                intent.setData(Uri.parse("market://details?id=com.ellxsve.smapiinstaller"));
                 intent.setPackage("com.android.vending");
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             } catch (Exception ex) {
-                CommonLogic.openUrl(activity, "https://play.google.com/store/apps/details?id=com.ell.smapiinstaller");
+                CommonLogic.openUrl(activity, "https://play.google.com/store/apps/details?id=com.ellxsve.smapiinstaller");
             }
         });
     }
