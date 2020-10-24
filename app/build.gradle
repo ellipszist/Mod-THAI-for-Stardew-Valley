@@ -5,21 +5,18 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 30
 
 
     defaultConfig {
         applicationId "com.ell.smapiinstaller"
         minSdkVersion 19
-        targetSdkVersion 28
-        versionCode 56
-        versionName "1.6.3"
+        targetSdkVersion 30
+        versionCode 60
+        versionName "1.7.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
-        ndk {
-            abiFilters 'armeabi-v7a','arm64-v8a'
-        }
     }
 
     buildTypes {
@@ -53,8 +50,8 @@ android {
         }
     }
 
-    viewBinding {
-        enabled = true
+    buildFeatures {
+        viewBinding true
     }
 }
 
@@ -69,8 +66,8 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
-    implementation "androidx.navigation:navigation-fragment:2.3.0"
-    implementation "androidx.navigation:navigation-ui:2.3.0"
+    implementation "androidx.navigation:navigation-fragment:2.3.1"
+    implementation "androidx.navigation:navigation-ui:2.3.1"
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     // https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on
     implementation group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.65.01'

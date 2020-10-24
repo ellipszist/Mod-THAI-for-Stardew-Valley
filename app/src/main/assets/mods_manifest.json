@@ -1,23 +1,26 @@
 [
   {
     "assetPath":"mods/android-modth.zip",
-    "Name": "AndroidModTH",
-    "UniqueID": "AndroidModTH"
+    "Name": "Stardew Valley Thai Language (Mobile)",
+    "UniqueID": "TranslatorArmy.ModTH"
   },
   {
     "assetPath":"mods/content-patcher.zip",
     "Name": "Content Patcher",
-    "UniqueID": "ContentPatcher"
+    "UniqueID": "Pathoschild.ContentPatcher"
   },
   {
     "assetPath":"mods/virtual-keyboard.zip",
-    "Name": "VirtualKeyboard",
+    "Name": "648c4b387c5b61642614aa6677909a755a9b84fd96d717703fc83f5f73f515c0board",
     "UniqueID": "VirtualKeyboard"
   },
   {
     "assetPath":"mods/custom-localization.zip",
     "Name": "CustomLocalization",
-    "UniqueID": "ZaneYork.CustomLocalization"
+    "UniqueID": "ZaneYork.CustomLocalization",
+    "CleanInstall": true,
+    "Version": "1.1.0",
+    "OriginUniqueId": ["SMAPI.CustomLocalization"]
   },
   {
     "assetPath":"mods/console-commands.zip",

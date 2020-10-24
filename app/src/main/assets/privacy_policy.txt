@@ -30,7 +30,7 @@ The only official channel for distribution of this app are:
 <br>
 * <a href="https://play.google.com/store/apps/details?id=com.ell.smapiinstaller">Google Play Store</a>
 <br>
-* <a href="https://github.com/ellipszist/SMAPI-Android-Installer/releases">Github</a>
+* <a href="https://github.com/ellipszist/SMAPI-Android-Installer/releases">GitHub</a>
 <br>
 Any other mode of distribution is not official and thus, is not maintained by the developer.
 <br>
