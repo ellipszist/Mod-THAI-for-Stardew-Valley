@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FF9800</color>
-    <color name="colorPrimaryDark">#F57C00</color>
-    <color name="colorAccent">#FF5722</color>
-    <color name="colorTitle">#212121</color>
-    <color name="colorText">#333</color>
+    <color name="colorPrimary">#602749</color>
+    <color name="colorPrimaryDark">#3E1C33</color>
+    <color name="colorAccent">#602749</color>
+    <color name="colorTitle">#B14623</color>
+    <color name="colorText">#FFF</color>
     <color name="colorDivider">#EEE</color>
-    <color name="colorSiderNavBarStart">#4DB6AC</color>
-    <color name="colorSiderNavBarCenter">#009688</color>
-    <color name="colorSiderNavBarEnd">#00695C</color>
-    <color name="colorPopupBackground">#F3F3F3</color>
+    <color name="colorSiderNavBarStart">#fd7308</color>
+    <color name="colorSiderNavBarCenter">#d94c05</color>
+    <color name="colorSiderNavBarEnd">#cc3f07</color>
+    <color name="colorPopupBackground">#cc3f07</color>
 </resources>

@@ -48,4 +48,9 @@ public class AboutFragment extends Fragment {
         CommonLogic.openInPlayStore(this.getActivity());
     }
 
+    private void privacyPolicy() {
+        //CommonLogic.showPrivacyPolicy(binding.imgHeart, (dialog, dialogAction) -> {
+        //});
+    }
+
 }
