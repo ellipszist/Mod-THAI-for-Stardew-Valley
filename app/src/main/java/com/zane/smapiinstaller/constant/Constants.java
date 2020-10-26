@@ -67,7 +67,12 @@ public class Constants {
     /**
      * SMAPI版本
      */
-    public static final String SMAPI_VERSION = "3.7.2";
+    public static final String SMAPI_VERSION = "3.7.5";
+
+    /**
+     * 应用名称
+     */
+    public static String PATCHED_APP_NAME = null;
 
     /**
      * 平台
@@ -82,5 +87,5 @@ public class Constants {
     /**
      * 软件检查更新服务
      */
-    public static final String SELF_UPDATE_CHECK_SERVICE_URL = "http://zaneyork.cn/download/app_version.json";
+    public static final String SELF_UPDATE_CHECK_SERVICE_URL = "http://zaneyork.cn/dl/app_version.json";
 }

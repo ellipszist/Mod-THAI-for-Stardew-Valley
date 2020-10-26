@@ -4,15 +4,15 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
 import com.hjq.language.LanguagesManager;
 import com.lmntrx.android.library.livin.missme.ProgressDialog;
 import com.lzy.okgo.OkGo;
@@ -20,9 +20,10 @@ import com.lzy.okgo.model.Response;
 import com.microsoft.appcenter.AppCenter;
 import com.microsoft.appcenter.analytics.Analytics;
 import com.microsoft.appcenter.crashes.Crashes;
-import com.zane.smapiinstaller.constant.AppConfigKey;
+import com.zane.smapiinstaller.constant.AppConfigKeyConstants;
 import com.zane.smapiinstaller.constant.Constants;
 import com.zane.smapiinstaller.constant.DialogAction;
+import com.zane.smapiinstaller.databinding.ActivityMainBinding;
 import com.zane.smapiinstaller.dto.AppUpdateCheckResultDto;
 import com.zane.smapiinstaller.entity.AppConfig;
 import com.zane.smapiinstaller.entity.FrameworkConfig;
@@ -33,6 +34,7 @@ import com.zane.smapiinstaller.logic.GameLauncher;
 import com.zane.smapiinstaller.logic.ModAssetsManager;
 import com.zane.smapiinstaller.utils.ConfigUtils;
 import com.zane.smapiinstaller.utils.DialogUtils;
+import com.zane.smapiinstaller.utils.FileUtils;
 import com.zane.smapiinstaller.utils.JsonCallback;
 import com.zane.smapiinstaller.utils.JsonUtil;
 import com.zane.smapiinstaller.utils.TranslateUtil;
@@ -45,17 +47,12 @@ import java.util.Locale;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * @author Zane
@@ -64,23 +61,33 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
 
-    @BindView(R.id.launch)
-    public FloatingActionButton buttonLaunch;
-
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-
-    @BindView(R.id.drawer_layout)
-    DrawerLayout drawer;
-
-    @BindView(R.id.nav_view)
-    NavigationView navigationView;
-
     private int currentFragment = R.id.nav_main;
 
     public static MainActivity instance;
+    private ActivityMainBinding binding;
 
     private void requestPermissions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            // 先判断有没有权限
+            if (!Environment.isExternalStorageManager()) {
+                DialogUtils.showConfirmDialog(MainActivity.instance, R.string.confirm, R.string.request_all_files_access_permission, ((dialog, dialogAction) -> {
+                    if (dialogAction == DialogAction.POSITIVE) {
+                        ActivityResultHandler.registerListener(ActivityResultHandler.REQUEST_CODE_ALL_FILES_ACCESS_PERMISSION, (resultCode, data) -> {
+                            if (!Environment.isExternalStorageManager()) {
+                                this.finish();
+                            } else {
+                                requestPermissions();
+                            }
+                        });
+                        startActivityForResult(new Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION), ActivityResultHandler.REQUEST_CODE_ALL_FILES_ACCESS_PERMISSION);
+                    }
+                    else {
+                        this.finish();
+                    }
+                }));
+                return;
+            }
+        }
         if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainActivity.this,
@@ -109,13 +116,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         instance = this;
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-        AppConfig appConfig = ConfigUtils.getConfig((MainApplication) this.getApplication(), AppConfigKey.PRIVACY_POLICY_CONFIRM, false);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        AppConfig appConfig = ConfigUtils.getConfig((MainApplication) this.getApplication(), AppConfigKeyConstants.PRIVACY_POLICY_CONFIRM, false);
         if (Boolean.parseBoolean(appConfig.getValue())) {
             requestPermissions();
         } else {
-            CommonLogic.showPrivacyPolicy(toolbar, (dialog, action) -> {
+            CommonLogic.showPrivacyPolicy(binding.appBarMain.toolbar, (dialog, action) -> {
                 if (action == DialogAction.POSITIVE) {
                     appConfig.setValue(String.valueOf(true));
                     ConfigUtils.saveConfig((MainApplication) this.getApplication(), appConfig);
@@ -125,33 +132,36 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+        binding.appBarMain.launch.setOnClickListener(v -> launchButtonClick());
     }
 
     private void initView() {
         AppCenter.start(getApplication(), Constants.APP_CENTER_SECRET, Analytics.class, Crashes.class);
-        setSupportActionBar(toolbar);
+        setSupportActionBar(binding.appBarMain.toolbar);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_main, R.id.nav_config, R.id.nav_help, R.id.nav_download, R.id.nav_about)
-                .setOpenableLayout(drawer)
+                .setOpenableLayout(binding.drawerLayout)
                 .build();
         final NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
+        NavigationUI.setupWithNavController(binding.navView, navController);
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
             currentFragment = destination.getId();
             this.invalidateOptionsMenu();
-            switch (currentFragment){
+            switch (currentFragment) {
                 case R.id.nav_about:
                 case R.id.nav_help:
                 case R.id.config_edit_fragment:
-                    buttonLaunch.setVisibility(View.INVISIBLE);
+                    binding.appBarMain.launch.setVisibility(View.INVISIBLE);
                     break;
                 default:
-                    buttonLaunch.setVisibility(View.VISIBLE);
+                    binding.appBarMain.launch.setVisibility(View.VISIBLE);
             }
         });
+        AppConfig appConfig = ConfigUtils.getConfig((MainApplication) this.getApplication(), AppConfigKeyConstants.IGNORE_UPDATE_VERSION_CODE, Constants.PATCHED_APP_NAME);
+        Constants.PATCHED_APP_NAME = appConfig.getValue();
         checkAppUpdate();
     }
 
@@ -162,11 +172,11 @@ public class MainActivity extends AppCompatActivity {
             public void onSuccess(Response<AppUpdateCheckResultDto> response) {
                 AppUpdateCheckResultDto dto = response.body();
                 if (dto != null && CommonLogic.getVersionCode(MainActivity.this) < dto.getVersionCode()) {
-                    AppConfig appConfig = ConfigUtils.getConfig(application, AppConfigKey.IGNORE_UPDATE_VERSION_CODE, dto.getVersionCode());
+                    AppConfig appConfig = ConfigUtils.getConfig(application, AppConfigKeyConstants.IGNORE_UPDATE_VERSION_CODE, dto.getVersionCode());
                     if (StringUtils.equals(appConfig.getValue(), String.valueOf(dto.getVersionCode()))) {
                         return;
                     }
-                    DialogUtils.showConfirmDialog(toolbar, R.string.settings_check_for_updates,
+                    DialogUtils.showConfirmDialog(binding.appBarMain.toolbar, R.string.settings_check_for_updates,
                             MainActivity.this.getString(R.string.app_update_detected, dto.getVersionName()), (dialog, which) -> {
                                 if (which == DialogAction.POSITIVE) {
                                     CommonLogic.openUrl(MainActivity.this, Constants.RELEASE_URL);
@@ -179,9 +189,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    @OnClick(R.id.launch)
     void launchButtonClick() {
-        new GameLauncher(navigationView).launch();
+        new GameLauncher(binding.navView).launch();
     }
 
     @Override
@@ -197,16 +206,15 @@ public class MainActivity extends AppCompatActivity {
         FrameworkConfig config = manager.getConfig();
         menu.findItem(R.id.settings_verbose_logging).setChecked(config.isVerboseLogging());
         menu.findItem(R.id.settings_check_for_updates).setChecked(config.isCheckForUpdates());
-        if(currentFragment != R.id.nav_config) {
+        if (currentFragment != R.id.nav_config) {
             menu.findItem(R.id.toolbar_update_check).setVisible(false);
-        }
-        else {
+        } else {
             menu.findItem(R.id.toolbar_update_check).setVisible(true);
         }
         menu.findItem(R.id.settings_developer_mode).setChecked(config.isDeveloperMode());
         menu.findItem(R.id.settings_disable_mono_mod).setChecked(config.isDisableMonoMod());
-        menu.findItem(R.id.settings_rewrite_in_parallel).setChecked(config.isRewriteInParallel());
-        menu.findItem(R.id.settings_advanced_mode).setChecked(Boolean.parseBoolean(ConfigUtils.getConfig((MainApplication) getApplication(), AppConfigKey.ADVANCED_MODE, "false").getValue()));
+        menu.findItem(R.id.settings_rewrite_missing).setChecked(config.isRewriteMissing());
+        menu.findItem(R.id.settings_advanced_mode).setChecked(Boolean.parseBoolean(ConfigUtils.getConfig((MainApplication) getApplication(), AppConfigKeyConstants.ADVANCED_MODE, "false").getValue()));
         Constants.MOD_PATH = config.getModsPath();
         return super.onPrepareOptionsMenu(menu);
     }
@@ -235,37 +243,30 @@ public class MainActivity extends AppCompatActivity {
             case R.id.settings_disable_mono_mod:
                 config.setDisableMonoMod(item.isChecked());
                 break;
-            case R.id.settings_rewrite_in_parallel:
-                config.setRewriteInParallel(item.isChecked());
+            case R.id.settings_rewrite_missing:
+                config.setRewriteMissing(item.isChecked());
                 break;
+            case R.id.settings_set_app_name:
+                DialogUtils.showInputDialog(binding.appBarMain.toolbar, R.string.input, R.string.settings_set_app_name, Constants.PATCHED_APP_NAME, Constants.PATCHED_APP_NAME, true, (dialog, input) -> {
+                    String appName = input.toString();
+                    AppConfig appConfig = ConfigUtils.getConfig((MainApplication) getApplication(), AppConfigKeyConstants.IGNORE_UPDATE_VERSION_CODE, appName);
+                    appConfig.setValue(appName);
+                    ConfigUtils.saveConfig((MainApplication) getApplication(), appConfig);
+                    Constants.PATCHED_APP_NAME = appName;
+                });
+                return true;
             case R.id.settings_set_mod_path:
-                DialogUtils.showInputDialog(toolbar, R.string.input, R.string.input_mods_path, Constants.MOD_PATH, Constants.MOD_PATH, (dialog, input) -> {
+                DialogUtils.showInputDialog(binding.appBarMain.toolbar, R.string.input, R.string.input_mods_path, Constants.MOD_PATH, Constants.MOD_PATH, (dialog, input) -> {
                     if (StringUtils.isNoneBlank(input)) {
                         String pathString = input.toString();
-                        File file = new File(Environment.getExternalStorageDirectory(), pathString);
+                        File file = new File(FileUtils.getStadewValleyBasePath(), pathString);
                         if (file.exists() && file.isDirectory()) {
                             Constants.MOD_PATH = pathString;
                             config.setModsPath(pathString);
                             manager.flushConfig();
                         } else {
-                            DialogUtils.showAlertDialog(drawer, R.string.error, R.string.error_illegal_path);
+                            DialogUtils.showAlertDialog(binding.drawerLayout, R.string.error, R.string.error_illegal_path);
                         }
-                    }
-                });
-                return true;
-            case R.id.settings_set_max_log_size:
-                DialogUtils.showInputDialog(toolbar, R.string.input, R.string.settings_set_max_log_size, String.valueOf(config.getMaxLogSize()), String.valueOf(config.getMaxLogSize()), (dialog, input) -> {
-                    if (StringUtils.isNoneBlank(input)) {
-                        try {
-                            int size = Integer.parseInt(input.toString());
-                            config.setMaxLogSize(size);
-                            manager.flushConfig();
-                        } catch (Exception ignored) {
-
-                        }
-                    } else {
-                        config.setMaxLogSize(Integer.MAX_VALUE);
-                        manager.flushConfig();
                     }
                 });
                 return true;
@@ -279,7 +280,7 @@ public class MainActivity extends AppCompatActivity {
                 checkModUpdateLogic();
                 return true;
             case R.id.settings_advanced_mode:
-                AppConfig appConfig = ConfigUtils.getConfig((MainApplication) getApplication(), AppConfigKey.ADVANCED_MODE, "false");
+                AppConfig appConfig = ConfigUtils.getConfig((MainApplication) getApplication(), AppConfigKeyConstants.ADVANCED_MODE, "false");
                 appConfig.setValue(String.valueOf(item.isChecked()));
                 ConfigUtils.saveConfig((MainApplication) getApplication(), appConfig);
                 startActivity(new Intent(this, MainActivity.class));
@@ -306,9 +307,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void selectTranslateServiceLogic() {
         MainApplication application = (MainApplication) this.getApplication();
-        AppConfig activeTranslator = ConfigUtils.getConfig(application, AppConfigKey.ACTIVE_TRANSLATOR, TranslateUtil.NONE);
+        AppConfig activeTranslator = ConfigUtils.getConfig(application, AppConfigKeyConstants.ACTIVE_TRANSLATOR, TranslateUtil.NONE);
         int index = getTranslateServiceIndex(activeTranslator);
-        DialogUtils.showSingleChoiceDialog(toolbar, R.string.settings_translation_service, R.array.translators, index, (dialog, position) -> {
+        DialogUtils.showSingleChoiceDialog(binding.appBarMain.toolbar, R.string.settings_translation_service, R.array.translators, index, (dialog, position) -> {
             switch (position) {
                 case 0:
                     activeTranslator.setValue(TranslateUtil.NONE);
@@ -328,7 +329,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void selectLanguageLogic() {
-        DialogUtils.showListItemsDialog(toolbar, R.string.settings_set_language, R.array.languages, (dialog, position) -> {
+        DialogUtils.showListItemsDialog(binding.appBarMain.toolbar, R.string.settings_set_language, R.array.languages, (dialog, position) -> {
             boolean restart;
             switch (position) {
                 case 0:
@@ -374,7 +375,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkModUpdateLogic() {
-        ModAssetsManager modAssetsManager = new ModAssetsManager(toolbar);
+        ModAssetsManager modAssetsManager = new ModAssetsManager(binding.appBarMain.toolbar);
         modAssetsManager.checkModUpdate((list) -> {
             if (list.isEmpty()) {
                 CommonLogic.runOnUiThread(this, (activity) -> Toast.makeText(activity, R.string.no_update_text, Toast.LENGTH_SHORT).show());
@@ -423,7 +424,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setFloatingBarVisibility(boolean value) {
-        buttonLaunch.setVisibility(value ? View.VISIBLE: View.INVISIBLE);
+        binding.appBarMain.launch.setVisibility(value ? View.VISIBLE : View.INVISIBLE);
     }
 }
 

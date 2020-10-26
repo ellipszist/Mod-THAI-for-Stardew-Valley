@@ -5,13 +5,13 @@ import android.os.Environment;
 import android.util.Log;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 import com.google.common.hash.Hashing;
 import com.google.common.io.ByteStreams;
 import com.google.common.io.CharStreams;
 import com.google.common.io.Files;
 import com.hjq.language.LanguagesManager;
-import com.microsoft.appcenter.crashes.Crashes;
-import com.smart.library.util.bspatch.BSPatchUtil;
 
 import org.apache.commons.io.input.BOMInputStream;
 import org.apache.commons.lang3.StringUtils;
@@ -24,6 +24,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 /**
  * 文件工具类
@@ -39,7 +43,7 @@ public class FileUtils extends org.zeroturnaround.zip.commons.FileUtils {
      */
     public static String getFileText(File file) {
         try {
-            InputStream inputStream = new FileInputStream(file);
+            InputStream inputStream = new BOMInputStream(new FileInputStream(file));
             try (InputStreamReader reader = new InputStreamReader(inputStream, StandardCharsets.UTF_8)) {
                 return CharStreams.toString(reader);
             }
@@ -282,7 +286,7 @@ public class FileUtils extends org.zeroturnaround.zip.commons.FileUtils {
      * @return 移除前缀后的路径
      */
     public static String toPrettyPath(String path) {
-        return StringUtils.removeStart(path, Environment.getExternalStorageDirectory().getAbsolutePath());
+        return StringUtils.removeStart(path, FileUtils.getStadewValleyBasePath());
     }
 
     /**
@@ -314,26 +318,15 @@ public class FileUtils extends org.zeroturnaround.zip.commons.FileUtils {
         return null;
     }
 
-    public static byte[] patchFile(byte[] originBytes, byte[] patchBytes) {
-        File patch = null;
-        File origin = null;
-        File patched = null;
-        try {
-            patch = File.createTempFile("patch", null);
-            Files.write(patchBytes, patch);
-            origin = File.createTempFile("origin", null);
-            Files.write(originBytes, origin);
-            patched = File.createTempFile("patched", null);
-            if (BSPatchUtil.bspatch(origin.getAbsolutePath(), patched.getAbsolutePath(), patch.getAbsolutePath()) == 0) {
-                return Files.asByteSource(patched).read();
-            }
-        } catch (Exception e) {
-            Crashes.trackError(e);
-        } finally {
-            FileUtils.deleteQuietly(patch);
-            FileUtils.deleteQuietly(origin);
-            FileUtils.deleteQuietly(patched);
-        }
-        return null;
+    public static String getStadewValleyBasePath() {
+        return Environment.getExternalStorageDirectory().getAbsolutePath();
+    }
+
+    public static List<String> listAll(String basePath, Predicate<File> filter) {
+        return Lists.newArrayList(
+                Iterables.transform(
+                        Iterables.filter(Files.fileTraverser().breadthFirst(new File(basePath)), filter::test),
+                        File::getAbsolutePath)
+        );
     }
 }

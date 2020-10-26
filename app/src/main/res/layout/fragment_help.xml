@@ -10,6 +10,8 @@
         android:id="@+id/button_compat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/button"
+        android:textColor="#fd7308"
         android:text="@string/button_compat"
         app:layout_constraintTop_toBottomOf="@id/guideline_h1"
         app:layout_constraintStart_toEndOf="@id/guideline_v1"/>
@@ -18,6 +20,8 @@
         android:id="@+id/button_nexus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/button"
+        android:textColor="#fd7308"
         android:text="@string/button_nexus"
         app:layout_constraintTop_toBottomOf="@id/guideline_h1"
         app:layout_constraintStart_toEndOf="@id/button_compat" />
@@ -26,6 +30,8 @@
         android:id="@+id/button_logs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/button"
+        android:textColor="#fd7308"
         android:text="@string/button_logs"
         app:layout_constraintTop_toBottomOf="@id/guideline_h1"
         app:layout_constraintStart_toEndOf="@id/button_nexus" />

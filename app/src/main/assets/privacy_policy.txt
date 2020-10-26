@@ -1,4 +1,4 @@
-'ELL built the Mod THAI for Stardew Valley app. This app is provided by at no cost and is intended for use as is: provide the SMAPI framework for Stardew Valley.
+'ELL built the Mod THAI for SVE app. This app is provided by at no cost and is intended for use as is: provide the SMAPI framework for Stardew Valley.
 <br>
 This privacy policy is used to inform you regarding policies with the collection, use, and disclosure of Personal Information if anyone decided to use this app.
 <br>
@@ -28,9 +28,9 @@ These Services do not address anyone under the age of 16. I do not knowingly col
 <br>
 The only official channel for distribution of this app are:
 <br>
-* <a href="https://play.google.com/store/apps/details?id=com.ell.smapiinstaller">Google Play Store</a>
+* <a href="https://play.google.com/store/apps/details?id=com.ellxsve.smapiinstaller">Google Play Store</a>
 <br>
-* <a href="https://github.com/ellipszist/SMAPI-Android-Installer/releases">Github</a>
+* <a href="https://github.com/ellipszist/SMAPI-Android-Installer/releases">GitHub</a>
 <br>
 Any other mode of distribution is not official and thus, is not maintained by the developer.
 <br>
