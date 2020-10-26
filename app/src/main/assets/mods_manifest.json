@@ -1,12 +1,12 @@
 [
   {
     "assetPath":"mods/android-modth.zip",
-    "Name": "Stardew Valley Thai Language (Mobile)",
+    "Name": "AndroidModTH",
     "UniqueID": "TranslatorArmy.ModTH"
   },
   {
     "assetPath":"mods/content-patcher.zip",
-    "Name": "Content Patcher",
+    "Name": "ContentPatcher",
     "UniqueID": "Pathoschild.ContentPatcher"
   },
   {
