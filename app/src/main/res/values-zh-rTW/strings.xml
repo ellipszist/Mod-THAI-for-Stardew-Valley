@@ -3,6 +3,7 @@
     <string name="android_version_confirm">您的系統版本過舊，可能會導致 0Harmony 無效，建議更新到 Android 6 或以上版本</string>
     <string name="app_name">SMAPI 安裝器</string>
     <string name="button_compat">相容性</string>
+    <string name="button_donation_text">贊助</string>
     <string name="button_gplay" >Google Play</string>
     <string name="button_install">安裝</string>
     <string name="button_logs">日誌</string>
@@ -59,7 +60,7 @@
     <string name="settings_verbose_logging">詳細日誌</string>
     <string name="signing_package">正在簽名安裝包</string>
     <string name="smapi_game_name">SMAPI 星露谷物語</string>
-    <string name="smapi_version">SMAPI版本: 3.7.5</string>
+    <string name="smapi_version">SMAPI版本: 3.7.6</string>
     <string name="text_install_tip1">注意：需要 1.4.5.138 以上遊戲版本</string>
     <string name="text_install_tip2">更新或安裝期間需要安裝遊戲</string>
     <string name="unpacking_smapi_files">正在解包</string>

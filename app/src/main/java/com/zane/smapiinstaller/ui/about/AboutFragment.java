@@ -3,6 +3,7 @@ package com.zane.smapiinstaller.ui.about;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.didikee.donate.AlipayDonate;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,8 @@ public class AboutFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentAboutBinding.inflate(inflater, container, false);
         binding.buttonRelease.setOnClickListener(v -> release());
+//        binding.buttonQqGroup1.setOnClickListener(v -> joinQQ());
+//        binding.buttonDonation.setOnClickListener(v -> donation());
         binding.buttonPrivacyPolicy.setOnClickListener(v -> privacyPolicy());
         return binding.getRoot();
     }

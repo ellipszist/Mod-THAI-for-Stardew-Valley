@@ -4,6 +4,7 @@
     <string name="android_version_confirm">Versi sistem android anda terlalu tua untuk MonoMod. Ini dapat menyebabkan kerusakan pada kerangka 0Harmony. Mohon perbarui versi android anda ke Android M atau lebih baru jika memungkinkan.</string>
     <string name="app_name">Pemasang SMAPI</string>
     <string name="button_compat">Kompatibiltas</string>
+    <string name="button_donation_text">Donasi</string>
     <string name="button_gplay">Lihat di Play Store</string>
     <string name="button_install">Pasang</string>
     <string name="button_logs">Catatan</string>
@@ -60,7 +61,7 @@
     <string name="settings_verbose_logging">Catatan Terperinci</string>
     <string name="signing_package">Menandatangani</string>
     <string name="smapi_game_name">SMAPI Stardew Valley</string>
-    <string name="smapi_version">Versi SMAPI: 3.7.5</string>
+    <string name="smapi_version">Versi SMAPI: 3.7.6</string>
     <string name="text_install_tip1">Catatan: Dibutuhkan Stardew Valley versi 1.4.5.138 atau yang lebih baru.</string>
     <string name="text_install_tip2">Permainan dasar diperlukan saat memperbarui/menginstal.</string>
     <string name="unpacking_smapi_files">Membongkar</string>

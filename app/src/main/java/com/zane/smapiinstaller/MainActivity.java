@@ -67,27 +67,27 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
 
     private void requestPermissions() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            // 先判断有没有权限
-            if (!Environment.isExternalStorageManager()) {
-                DialogUtils.showConfirmDialog(MainActivity.instance, R.string.confirm, R.string.request_all_files_access_permission, ((dialog, dialogAction) -> {
-                    if (dialogAction == DialogAction.POSITIVE) {
-                        ActivityResultHandler.registerListener(ActivityResultHandler.REQUEST_CODE_ALL_FILES_ACCESS_PERMISSION, (resultCode, data) -> {
-                            if (!Environment.isExternalStorageManager()) {
-                                this.finish();
-                            } else {
-                                requestPermissions();
-                            }
-                        });
-                        startActivityForResult(new Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION), ActivityResultHandler.REQUEST_CODE_ALL_FILES_ACCESS_PERMISSION);
-                    }
-                    else {
-                        this.finish();
-                    }
-                }));
-                return;
-            }
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+//            // 先判断有没有权限
+//            if (!Environment.isExternalStorageManager()) {
+//                DialogUtils.showConfirmDialog(MainActivity.instance, R.string.confirm, R.string.request_all_files_access_permission, ((dialog, dialogAction) -> {
+//                    if (dialogAction == DialogAction.POSITIVE) {
+//                        ActivityResultHandler.registerListener(ActivityResultHandler.REQUEST_CODE_ALL_FILES_ACCESS_PERMISSION, (resultCode, data) -> {
+//                            if (!Environment.isExternalStorageManager()) {
+//                                this.finish();
+//                            } else {
+//                                requestPermissions();
+//                            }
+//                        });
+//                        startActivityForResult(new Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION), ActivityResultHandler.REQUEST_CODE_ALL_FILES_ACCESS_PERMISSION);
+//                    }
+//                    else {
+//                        this.finish();
+//                    }
+//                }));
+//                return;
+//            }
+//        }
         if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainActivity.this,

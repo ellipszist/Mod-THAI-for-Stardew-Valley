@@ -33,7 +33,7 @@ public class Constants {
     /**
      * 软件发布页
      */
-    public static final String RELEASE_URL = "https://github.com/ellipszist/StardewMods/releases";
+    public static final String RELEASE_URL = "https://ellipszist.github.io";
     /**
      * 帮助内容下载路径
      */
@@ -67,7 +67,7 @@ public class Constants {
     /**
      * SMAPI版本
      */
-    public static final String SMAPI_VERSION = "3.7.5";
+    public static final String SMAPI_VERSION = "3.7.6";
 
     /**
      * 应用名称

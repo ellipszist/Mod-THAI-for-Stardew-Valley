@@ -4,6 +4,7 @@
     <string name="android_version_confirm">A versão do sistema do seu dispositivo é muito antiga para o MonoMod, isso pode levar ao travamento da estrutura 0Harmony, atualizar para o Android M ou posterior, se possível</string>
     <string name="app_name">Instalador SMAPI</string>
     <string name="button_compat">Compat</string>
+    <string name="button_donation_text">Doação</string>
     <string name="button_gplay">Ver na Play Store</string>
     <string name="button_install">Instalar</string>
     <string name="button_logs">Histórico</string>
@@ -60,7 +61,7 @@
     <string name="settings_verbose_logging">Log detalhado</string>
     <string name="signing_package">Assinatura</string>
     <string name="smapi_game_name">SMAPI Stardew Valley</string>
-    <string name="smapi_version">Versão SMAPI: 3.7.5</string>
+    <string name="smapi_version">Versão SMAPI: 3.7.6</string>
     <string name="text_install_tip1">Notas: É necessária a versão do jogo 1.4.5.138 ou posterior.</string>
     <string name="text_install_tip2">O jogo base é necessário ao atualizar / instalar.</string>
     <string name="unpacking_smapi_files">Desembalar</string>
