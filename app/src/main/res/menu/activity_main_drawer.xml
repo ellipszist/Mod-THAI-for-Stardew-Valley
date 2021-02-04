@@ -7,7 +7,7 @@
         <item
             android:id="@+id/nav_main"
             android:icon="@drawable/add"
-            android:title="@string/nav_header_title" />
+            android:title="@string/menu_install" />
         <item
             android:id="@+id/nav_config"
             android:icon="@drawable/edit"
