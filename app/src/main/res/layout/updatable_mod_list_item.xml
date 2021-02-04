@@ -25,6 +25,7 @@
             android:id="@+id/button_update_mod"
             android:layout_width="32dp"
             android:layout_height="32dp"
+            android:backgroundTint="#F57C00"
             android:background="@drawable/global"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

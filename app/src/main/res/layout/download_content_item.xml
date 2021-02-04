@@ -49,11 +49,13 @@
             android:id="@+id/button_remove_content"
             android:layout_width="32dp"
             android:layout_height="32dp"
+            android:backgroundTint="#F57C00"
             android:background="@drawable/trash" />
         <Button
             android:id="@+id/button_download_content"
             android:layout_width="32dp"
             android:layout_height="32dp"
+            android:backgroundTint="#F57C00"
             android:background="@drawable/add" />
     </LinearLayout>
 </RelativeLayout>

@@ -4,6 +4,8 @@
     <string name="app_name">SMAPI Installer</string>
     <string name="button_compat">Compat</string>
     <string name="button_donation_text">Donation</string>
+    <string name="button_discord_text">Thai translation team</string>
+    <string name="button_facebook_text">Stardew Valley Mobile Thailand</string>
     <string name="button_gplay">View in Play Store</string>
     <string name="button_install">Install</string>
     <string name="button_logs">Logs</string>

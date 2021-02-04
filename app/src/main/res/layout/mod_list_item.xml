@@ -34,12 +34,14 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
+                android:backgroundTint="#F57C00"
                 android:background="@drawable/disable" />
         </androidx.constraintlayout.widget.ConstraintLayout>
         <TextView
             android:id="@+id/text_view_mod_description"
             android:gravity="start"
             android:textSize="16sp"
+            android:textColor="#388E3C"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </LinearLayout>
@@ -53,11 +55,13 @@
             android:id="@+id/button_remove_mod"
             android:layout_width="32dp"
             android:layout_height="32dp"
+            android:backgroundTint="#D32F2F"
             android:background="@drawable/trash" />
         <Button
             android:id="@+id/button_config_mod"
             android:layout_width="32dp"
             android:layout_height="32dp"
+            android:backgroundTint="#388E3C"
             android:background="@drawable/edit" />
     </LinearLayout>
 </RelativeLayout>

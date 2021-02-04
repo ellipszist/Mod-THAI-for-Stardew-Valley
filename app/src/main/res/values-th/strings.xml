@@ -5,6 +5,8 @@
     <string name="app_name">แอปติดตั้ง SMAPI</string>
     <string name="button_compat">ใช้กับแอปนี้ได้</string>
     <string name="button_donation_text">การบริจาค</string>
+    <string name="button_discord_text">ติดต่อทีมงาน mod ภาษาไทย</string>
+    <string name="button_facebook_text">พูดคุยเกี่ยวกับเกม Stardew Valley</string>
     <string name="button_gplay">ดูใน Play Store</string>
     <string name="button_install">ติดตั้ง</string>
     <string name="button_logs">บันทึกการทำงานของ SMAPI</string>

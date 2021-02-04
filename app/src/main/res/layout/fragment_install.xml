@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/button"
-        android:textColor="#fd7308"
+        android:textColor="#d94c05"
         android:text="@string/button_install"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,14 +34,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/button"
-            android:textColor="#fd7308"
+            android:textColor="#d94c05"
             android:text="@string/button_initial" />
         <Button
             android:id="@+id/button_adv_install"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/button"
-            android:textColor="#fd7308"
+            android:textColor="#d94c05"
             android:text="@string/button_install" />
     </LinearLayout>
 

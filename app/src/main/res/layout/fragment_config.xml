@@ -15,11 +15,13 @@
         app:layout_constraintTop_toBottomOf="@id/guideline_h1"
         android:hint="@android:string/search_go"
         android:inputType="text"
+        android:textColorHint="@color/colorText"
         android:importantForAutofill="no"/>
     <Button
         android:id="@+id/button_sort_by"
         android:layout_width="32dp"
         android:layout_height="32dp"
+        android:backgroundTint="@color/colorText"
         android:background="@drawable/sort_by"
         app:layout_constraintStart_toEndOf="@id/button_search"
         app:layout_constraintEnd_toStartOf="@id/guideline_v2"

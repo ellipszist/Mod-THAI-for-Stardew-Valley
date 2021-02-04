@@ -21,7 +21,7 @@
     <Button
         android:id="@+id/button_config_save"
         android:background="@drawable/button"
-        android:textColor="#fd7308"
+        android:textColor="#d94c05"
         android:text="@string/save"
         app:layout_constraintStart_toEndOf="@id/guideline_v1"
         app:layout_constraintTop_toBottomOf="@id/guideline_h2"
@@ -31,7 +31,7 @@
     <Button
         android:id="@+id/button_log_parser"
         android:background="@drawable/button"
-        android:textColor="#fd7308"
+        android:textColor="#d94c05"
         android:text="@string/parser"
         android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@id/guideline_v1"
@@ -42,7 +42,7 @@
     <Button
         android:id="@+id/button_config_cancel"
         android:background="@drawable/button"
-        android:textColor="#fd7308"
+        android:textColor="#d94c05"
         android:text="@string/cancel"
         app:layout_constraintEnd_toStartOf="@id/guideline_v2"
         app:layout_constraintTop_toBottomOf="@id/guideline_h2"

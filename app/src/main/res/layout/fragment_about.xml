@@ -18,56 +18,59 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+<!--            <Button-->
+<!--                android:id="@+id/button_qq_group_1"-->
+<!--                style="@style/Widget.AppCompat.Button.Borderless"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:gravity="center"-->
+<!--                android:text="@string/button_qq_group_text"-->
+<!--                android:textSize="24sp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toEndOf="@id/img_qq_1"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/img_qq_1"-->
+<!--                android:layout_width="40dp"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:contentDescription="@string/icon_desc"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:srcCompat="@drawable/tencentqq"-->
+<!--                app:tint="#F57C00" />-->
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content">-->
+
+
             <Button
-                android:id="@+id/button_qq_group_1"
+                android:id="@+id/button_discord"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@string/button_qq_group_text"
+                android:text="@string/button_discord_text"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/img_qq_1"
+                app:layout_constraintStart_toEndOf="@id/img_heart2"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/img_qq_1"
+                android:id="@+id/img_heart2"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:contentDescription="@string/icon_desc"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/tencentqq" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/button_release"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/button_release"
-                android:textSize="24sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/img_release"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/img_release"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:contentDescription="@string/icon_desc"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/global" />
+                app:srcCompat="@drawable/heart"
+                app:tint="#F57C00" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 <!--        <androidx.constraintlayout.widget.ConstraintLayout-->
@@ -103,27 +106,28 @@
             android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/button_gplay"
+                android:id="@+id/button_facebook"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@string/button_gplay"
+                android:text="@string/button_facebook_text"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/img_gplay"
+                app:layout_constraintStart_toEndOf="@id/img_heart3"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/img_gplay"
+                android:id="@+id/img_heart3"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:contentDescription="@string/icon_desc"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/global" />
+                app:srcCompat="@drawable/heart"
+                app:tint="#F57C00" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
     <TextView

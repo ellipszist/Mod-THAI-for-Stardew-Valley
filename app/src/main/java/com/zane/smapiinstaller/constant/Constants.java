@@ -34,6 +34,8 @@ public class Constants {
      * 软件发布页
      */
     public static final String RELEASE_URL = "https://ellipszist.github.io";
+    public static final String RELEASE_URL2 = "https://discord.gg/7GaBeqm";
+    public static final String RELEASE_URL3 = "https://web.facebook.com/groups/112249016352769";
     /**
      * 帮助内容下载路径
      */
