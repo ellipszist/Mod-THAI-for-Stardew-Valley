@@ -12,9 +12,9 @@ android {
         applicationId "com.ell.smapiinstaller"
         minSdkVersion 19
         targetSdkVersion 29
-        versionCode 60
-        //versionName "3.7.6.7"
-        versionName "2.0.0"
+	// zane versionCode 70, versionName 3.7.6.8
+        versionCode 61
+        versionName "1.8.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -23,11 +23,11 @@ android {
     buildTypes {
         release {
             minifyEnabled true
-            shrinkResources true
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
-            minifyEnabled false
+            minifyEnabled true
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
