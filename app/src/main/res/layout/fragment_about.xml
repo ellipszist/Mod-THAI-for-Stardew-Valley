@@ -14,9 +14,9 @@
         android:padding="10dp"
         android:showDividers="middle">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content">-->
 
 <!--            <Button-->
 <!--                android:id="@+id/button_qq_group_1"-->
@@ -43,10 +43,9 @@
 <!--                app:tint="#F57C00" />-->
 <!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content">-->
-
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <Button
                 android:id="@+id/button_discord"
