@@ -26,6 +26,7 @@ import com.lmntrx.android.library.livin.missme.ProgressDialog;
 import com.microsoft.appcenter.crashes.Crashes;
 import com.zane.smapiinstaller.MainApplication;
 import com.zane.smapiinstaller.R;
+import com.zane.smapiinstaller.constant.Constants;
 import com.zane.smapiinstaller.constant.DialogAction;
 import com.zane.smapiinstaller.constant.ManifestPatchConstants;
 import com.zane.smapiinstaller.entity.ApkFilesManifest;
@@ -38,11 +39,13 @@ import com.zane.smapiinstaller.utils.ZipUtils;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.zeroturnaround.zip.ZipUtil;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.channels.Channels;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -188,7 +191,7 @@ public class CommonLogic {
         return apkFilesManifests;
     }
 
-    public static String computePackageName(PackageInfo packageInfo){
+    public static String computePackageName(PackageInfo packageInfo) {
         String packageName = packageInfo.packageName;
         if (StringUtils.endsWith(packageInfo.versionName, ManifestPatchConstants.PATTERN_VERSION_AMAZON)) {
             packageName = ManifestPatchConstants.APP_PACKAGE_NAME + ManifestPatchConstants.PATTERN_VERSION_AMAZON;
@@ -199,26 +202,28 @@ public class CommonLogic {
     /**
      * 提取SMAPI环境文件到内部存储对应位置
      *
-     * @param context   context
-     * @param apkPath   安装包路径
-     * @param checkMode 是否为校验模式
+     * @param context     context
+     * @param apkPath     安装包路径
+     * @param checkMode   是否为校验模式
      * @param packageName 包名
      * @param versionCode 版本号
      * @return 操作是否成功
      */
     public static boolean unpackSmapiFiles(Context context, String apkPath, boolean checkMode, String packageName, long versionCode) {
+        checkMusic(packageName, checkMode);
         List<ApkFilesManifest> apkFilesManifests = CommonLogic.findAllApkFileManifest(context);
         filterManifest(apkFilesManifests, packageName, versionCode);
         List<ManifestEntry> manifestEntries = null;
         ApkFilesManifest apkFilesManifest = null;
-        if(apkFilesManifests.size() > 0) {
+        if (apkFilesManifests.size() > 0) {
             apkFilesManifest = apkFilesManifests.get(0);
             String basePath = apkFilesManifest.getBasePath();
-            if(StringUtils.isNoneBlank(basePath)) {
-                manifestEntries = FileUtils.getAssetJson(context, basePath + "smapi_files_manifest.json", new TypeReference<List<ManifestEntry>>() {});
+            if (StringUtils.isNoneBlank(basePath)) {
+                manifestEntries = FileUtils.getAssetJson(context, basePath + "smapi_files_manifest.json", new TypeReference<List<ManifestEntry>>() {
+                });
             }
         }
-        if(manifestEntries == null) {
+        if (manifestEntries == null) {
             manifestEntries = FileUtils.getAssetJson(context, "smapi_files_manifest.json", new TypeReference<List<ManifestEntry>>() {
             });
         }
@@ -230,11 +235,10 @@ public class CommonLogic {
             if (!basePath.mkdir()) {
                 return false;
             }
-        }
-        else {
-            if(!checkMode) {
+        } else {
+            if (!checkMode) {
                 File[] oldAssemblies = new File(basePath, "smapi-internal").listFiles((FileFilter) new WildcardFileFilter("*.dll"));
-                if(oldAssemblies != null) {
+                if (oldAssemblies != null) {
                     for (File file : oldAssemblies) {
                         FileUtils.deleteQuietly(file);
                     }
@@ -264,33 +268,56 @@ public class CommonLogic {
         return true;
     }
 
+    private static void checkMusic(String packageName, boolean checkMode) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && StringUtils.equals(packageName, Constants.ORIGIN_PACKAGE_NAME_GOOGLE)) {
+            File pathFrom = new File(FileUtils.getStadewValleyBasePath(), "Android/obb/" + packageName);
+            File pathTo = new File(FileUtils.getStadewValleyBasePath(), "Android/obb/" + Constants.TARGET_PACKAGE_NAME);
+            if (pathFrom.exists() && pathFrom.isDirectory()) {
+                if (!pathTo.exists()) {
+                    pathTo.mkdirs();
+                }
+                File[] files = pathFrom.listFiles((dir, name) -> name.contains("com.chucklefish.stardewvalley.obb"));
+                if (files != null) {
+                    for (File file : files) {
+                        try {
+                            File targetFile = new File(pathTo, file.getName());
+                            if (!targetFile.exists() || FileUtils.sizeOf(targetFile) != FileUtils.sizeOf(file)) {
+                                FileUtils.copyFile(file, targetFile);
+                            }
+                        } catch (IOException e) {
+                            Crashes.trackError(e);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     private static void unpackFromApk(String apkPath, boolean checkMode, ManifestEntry entry, File targetFile) {
         if (!checkMode || !targetFile.exists()) {
-            if(entry.isXALZ()){
+            if (entry.isXALZ()) {
                 byte[] bytes = ZipUtil.unpackEntry(new File(apkPath), entry.getAssetPath());
                 if (entry.isXALZ()) {
                     bytes = ZipUtils.decompressXALZ(bytes);
                 }
-                try (FileOutputStream stream = FileUtils.openOutputStream(targetFile)) {
-                    stream.write(bytes);
+                try (FileOutputStream outputStream = FileUtils.openOutputStream(targetFile)) {
+                    ByteStreams.copy(Channels.newChannel(new ByteArrayInputStream(bytes)), outputStream.getChannel());
                 } catch (IOException ignore) {
                 }
-            }
-            else {
+            } else {
                 ZipUtil.unpackEntry(new File(apkPath), entry.getAssetPath(), targetFile);
             }
         }
     }
 
     private static void unpackFromInstaller(Context context, boolean checkMode, ApkFilesManifest apkFilesManifest, File basePath, ManifestEntry entry, File targetFile) {
-        if(entry.isExternal() && apkFilesManifest != null){
+        if (entry.isExternal() && apkFilesManifest != null) {
             byte[] bytes = FileUtils.getAssetBytes(context, apkFilesManifest.getBasePath() + entry.getAssetPath());
             try (FileOutputStream outputStream = new FileOutputStream(targetFile)) {
-                outputStream.write(bytes);
+                ByteStreams.copy(Channels.newChannel(new ByteArrayInputStream(bytes)), outputStream.getChannel());
             } catch (IOException ignored) {
             }
-        }
-        else {
+        } else {
             if (entry.getTargetPath().endsWith("/") && entry.getAssetPath().contains("*")) {
                 String path = StringUtils.substring(entry.getAssetPath(), 0, StringUtils.lastIndexOf(entry.getAssetPath(), "/"));
                 String pattern = StringUtils.substringAfterLast(entry.getAssetPath(), "/");
@@ -306,7 +333,7 @@ public class CommonLogic {
         }
     }
 
-    public static void filterManifest(List<ApkFilesManifest> manifests, String packageName, long versionCode){
+    public static void filterManifest(List<ApkFilesManifest> manifests, String packageName, long versionCode) {
         Iterables.removeIf(manifests, manifest -> {
             if (manifest == null) {
                 return true;
@@ -322,6 +349,7 @@ public class CommonLogic {
             return manifest.getTargetPackageName() != null && packageName != null && !manifest.getTargetPackageName().contains(packageName);
         });
     }
+
     private static void unpackFile(Context context, boolean checkMode, String assertPath, File targetFile) {
         if (!checkMode || !targetFile.exists()) {
             try (InputStream inputStream = context.getAssets().open(assertPath)) {
@@ -332,7 +360,7 @@ public class CommonLogic {
                     }
                 }
                 try (FileOutputStream outputStream = new FileOutputStream(targetFile)) {
-                    ByteStreams.copy(inputStream, outputStream);
+                    ByteStreams.copy(Channels.newChannel(inputStream), outputStream.getChannel());
                 }
             } catch (IOException e) {
                 Log.e("COMMON", "Copy Error", e);
