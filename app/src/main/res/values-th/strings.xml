@@ -48,7 +48,7 @@
     <string name="menu_config_edit">แก้ไข</string>
     <string name="menu_download">ดาวน์โหลด</string>
     <string name="menu_help">ช่วยเหลือ</string>
-    <string name="menu_install">ติดตั้ง</string>
+    <string name="menu_install">ติดตั้งเกม</string>
     <string name="nav_header_subtitle">โดย \'ELL</string>
     <string name="nav_header_title">แอปติดตั้ง SMAPI</string>
     <string name="ok">ตกลง</string>
